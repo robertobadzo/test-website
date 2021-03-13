@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-
+<?php 
+require "header.php";
+?>
 
 <html>
 <head>
@@ -9,7 +11,30 @@
 <body>
 <p class="screenMessage">This is the register screen!</p>
   
- 
+  <?php
+  //THESE ARE THE ERROR MESSAGES FOR THE REGISTER SCHEME
+     if (isset($_GET['error'])){
+          if($_GET['error'] == "emptyfields"){
+          	echo '<p class="error"> Fill in all the fields!</p>';
+
+          }
+          else if($_GET['error'] == 'invalidemail'){
+            echo '<p class="error">The e-mail is invalid</p>';
+          }
+            else if($_GET['error'] == 'char'){
+            echo '<p class="error">Your name should only contain letters!</p>';
+          }
+          else if($_GET['error'] == 'passnotmatch'){
+            echo '<p class="error">Passwords do not match!</p>';
+          }
+           else if($_GET['error'] == 'usertaken'){
+            echo '<p class="error">This email has already been registered!</p>';
+          }
+           else if($_GET['error'] == 'sqlerror'){
+            echo '<p class="error">There is an access error with the database!</p>';
+          }
+     }
+  ?>
   <!--REGISTER SCHEME BELOW:-->
   <div class="registerScheme">
 <form method="POST" action="register-php.php">

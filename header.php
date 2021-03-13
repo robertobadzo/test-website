@@ -1,45 +1,73 @@
+<!-- This page is a header page. It also contains important files and database connection-->
+<?php
+session_start();
+ 
+require 'dbh.php';
 
+?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-	
+	<!--link to the CSS file-->
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<!--Title of the Website-->
 	<title>Test Website</title>
 </head>
 <body>
 	<div class="header">
+<!--LOGO BOX with a hyperlink which when pressed will always return you to the home page (index.php)-->
+	<div class="logo"><h1><a href="index.php">Test Website</a></h1></div>
+	   <?php
+       if (isset($_GET['register'])){
+            if($_GET['register'] == 'success'){
 
+            //MESSAGE: THIS IS a registration confirmation message, it only shows up if the user just registered
 
-          <div class= "message"><p class = "success">You successfully registered. Now log in!</p></div>
+            echo '<div class= "message"><p class = "success">You successfully registered. Now log in!</p></div>';}
                
-         
+          }
  
 
-     <div class= "message"><p class = "success">Welcome '
+      if (isset ($_SESSION['fullName'])){
+      
+      
+          
+       //MESSAGE: this is a welcome message, it shows up if the user is logged in   
+
+      	echo '<div class= "message"><p class = "success">Welcome '. $_SESSION['fullName'] .' </p></div>';
      
 
-     <form method="get" action="logout-php.php">
+      //THIS IS A LOGOUT BUTTON WHICH REDIRECTS THE USER TO THE LOGOUT CODE
+      	echo '<form method="get" action="logout-php.php">
 <div class="logoutButton"><button>Logout</button></div>
-</form>
+</form>';
 
+      }
+      else {
 
-      	
+      	// MESSAGE: This message only shows up if the user is not logged in
+      	echo '<div class= "message"><p>You are logged out </p></div>';
+      	echo '<form method="get" action="login-page.php">
+
 		<!-- COMMENT Login button, only shows up if the user is not logged in-->
 
 		<div class = "login"><button type="submit">Login</button></div>
 		</form> <form method="get" action="register-page.php">
 		<div class = "register"><button>Register</button></div>
-		</form>
+		</form>';
+
+      }
+
+       
+	?>
 	
 
+		
+
 		<div class = "search">	
-			
-		<form method="GET" action="results.php">
-
-
-
+		<form method="GET" action="header.php">
      <!--SEARCH SCHEME which shows up in the header of every page-->
 	<label>Search for a user:</label>
 
@@ -69,6 +97,15 @@
 <input type="text" name="search-field" placeholder ="Search" align="top-right">
 <!--Submit the search into results page-->
 <button type="submit" name="submit">Submit</button></div>
+<?php
+
+	 
+
+}
+else{
+	header("Location: index.php");
+}
+?>
 </form>
 
 
